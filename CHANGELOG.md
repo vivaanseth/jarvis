@@ -2,6 +2,12 @@
 
 All notable changes to Jarvis will be documented here. The project follows semantic versioning after the first public release.
 
+## 1.3.6 - 2026-07-11
+
+### Fixed
+
+- Universal macOS packaging retains the universal helper through Electron’s external-resource merge.
+
 ## 1.3.5 - 2026-07-11
 
 ### Fixed
