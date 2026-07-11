@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jarvis</title><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <aside class="sidebar">
+      <div class="brand" title="Jarvis"><div class="brand-orb" aria-hidden="true"></div><span class="brand-name">Jarvis</span></div>
+      <nav aria-label="Main navigation">
+        <button class="nav-item active" data-screen="command" title="Command"><span>⌘</span><b>Command</b></button>
+        <button class="nav-item" data-screen="automations" title="Automations"><span>◴</span><b>Automations</b></button>
+        <button class="nav-item" data-screen="library" title="Library"><span>◫</span><b>Library</b></button>
+        <button class="nav-item" data-screen="history" title="History"><span>↗</span><b>History</b></button>
+        <button class="nav-item" data-screen="connections" title="Connections"><span>⌁</span><b>Connections</b></button>
+      </nav>
+      <div class="sidebar-foot">
+        <button class="nav-item" data-screen="settings" title="Settings"><span>⚙</span><b>Settings</b></button>
+        <div class="privacy" title="Local core online. No account or cloud connection."><i></i><div><strong>Local</strong><small>Private</small></div></div>
+      </div>
+    </aside>
+    <main id="content" class="content" tabindex="-1"></main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="onboarding" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
+    <section id="setup-content" class="onboarding-card setup-wizard"></section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>Jarvis</string>
+    <key>CFBundleExecutable</key>
+    <string>JarvisNativeBridge</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.local.Jarvis.NativeBridge</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>Jarvis</string>
+    <key>CFBundlePackageType</key>
+    <string>BNDL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>13.0</string>
+    <key>NSCalendarsFullAccessUsageDescription</key>
+    <string>Jarvis uses calendar access to show and create events after your confirmation.</string>
+    <key>NSCalendarsUsageDescription</key>
+    <string>Jarvis uses calendar access to show and create events after your confirmation.</string>
+    <key>NSContactsUsageDescription</key>
+    <string>Jarvis uses contacts only to resolve people for actions you request.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Jarvis uses the microphone only while voice input is visibly active.</string>
+    <key>NSRemindersFullAccessUsageDescription</key>
+    <string>Jarvis uses reminders access to create reminders after your confirmation.</string>
+    <key>NSRemindersUsageDescription</key>
+    <string>Jarvis uses reminders access to create reminders after your confirmation.</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>Jarvis converts your voice into command text on this Mac.</string>
+</dict>
+</plist>

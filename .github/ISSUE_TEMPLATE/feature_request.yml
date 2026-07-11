@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest a capability or integration.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: Describe the outcome, not only the proposed implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Privacy and safety considerations
+      description: What data, permissions, confirmations, or external services would this require?
+    validations:
+      required: true

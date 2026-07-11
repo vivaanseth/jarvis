@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jarvis Assistant</title>
+  <link rel="stylesheet" href="orb.css">
+</head>
+<body>
+  <main id="orb" class="orb collapsed" data-state="idle" aria-label="Jarvis floating assistant">
+    <button id="orb-button" class="orb-button" aria-label="Open Jarvis assistant">
+      <span class="orb-guide guide-outer"></span><span class="orb-guide guide-inner"></span>
+      <span class="orb-ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <span class="orb-sweep sweep-one"></span><span class="orb-sweep sweep-two"></span>
+      <span class="orb-glow"></span><span class="orb-nucleus"></span>
+    </button>
+    <section class="panel">
+      <header>
+        <div class="orb-identity"><span class="identity-mark"></span><div><small>J.A.R.V.I.S.</small><strong id="orb-state">Systems ready</strong></div></div>
+        <div class="window-actions"><button id="voice" title="Voice input" aria-label="Toggle on-device voice input">◉</button><button id="open-main" title="Open Jarvis" aria-label="Open the full Jarvis window">↗</button><button id="collapse" title="Collapse" aria-label="Collapse assistant">−</button><button id="hide" title="Hide" aria-label="Hide floating assistant">×</button></div>
+      </header>
+      <form id="orb-form"><input id="orb-input" aria-label="Command" placeholder="What should we do?" autocomplete="off"><button type="submit">Run</button></form>
+      <div id="orb-result">Type a command, or press Escape to collapse.</div>
+      <footer><span>Mini command deck</span><span id="timer"></span><button id="quit" class="quit">Quit Jarvis</button></footer>
+    </section>
+  </main>
+  <script src="orb.js"></script>
+</body>
+</html>

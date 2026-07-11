@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Jarvis Browser Bridge",
+  "version": "1.0.0",
+  "description": "Optional, user-approved browser control for the local Jarvis macOS app.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiibnEO/uITvFfaIW4hlT9WWhO1i+vFPutSrMnbesgmUxvtkkOcrYoI2VfCnYrFbgICIU3Z7WM86hkUOgDlSW8lhHmgxkz9pqw1VsP8nt4wlmzNKA+ActQgQwHRMn4Y7ed7JpQUOY6u9zYYaGeHhoRwJfY5P4BtGw/xH3AtATI4BUW/o8NLCAV//5n+eSYx35Y49b1Kg8Ly47dsjdH2BsHFPaT3bYTs2y5vIeA6tu/4xc3f/vTGBk03GquA3wC3fSUrK1E4lR9RK5Qm8bGykjtVmfajzFpqjgROiO/rsusmfnEL+UwKc46VLkExL52Nbqmv2s3kHocKsfISZn2925uQIDAQAB",
+  "permissions": ["nativeMessaging", "tabs", "scripting", "storage"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "background": { "service_worker": "service-worker.js" },
+  "action": { "default_popup": "popup.html", "default_title": "Jarvis Browser Bridge" }
+}
