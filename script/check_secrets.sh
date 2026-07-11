@@ -1,9 +1,10 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 set -euo pipefail
 
-cd "${0:A:h}/.."
+cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-files=(${(f)"$(git ls-files --cached --others --exclude-standard 2>/dev/null)"})
+files=()
+while IFS= read -r file; do files+=("$file"); done < <(git ls-files --cached --others --exclude-standard 2>/dev/null)
 (( ${#files[@]} )) || exit 0
 
 patterns=(
@@ -19,11 +20,11 @@ patterns=(
   '-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'
 )
 
-for pattern in $patterns; do
-  if rg -n --no-messages --color never --glob '!package-lock.json' --glob '!script/check_secrets.sh' -- "$pattern" $files; then
-    print -u2 "Potential secret detected. Remove it and rotate the credential before committing."
+for pattern in "${patterns[@]}"; do
+  if rg -n --no-messages --color never --glob '!package-lock.json' --glob '!script/check_secrets.sh' -- "$pattern" "${files[@]}"; then
+    echo "Potential secret detected. Remove it and rotate the credential before committing." >&2
     exit 1
   fi
 done
 
-print "Secret scan passed (${#files[@]} files checked)."
+echo "Secret scan passed (${#files[@]} files checked)."

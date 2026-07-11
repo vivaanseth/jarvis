@@ -2,6 +2,13 @@
 
 All notable changes to Jarvis will be documented here. The project follows semantic versioning after the first public release.
 
+## 1.3.2 - 2026-07-11
+
+### Fixed
+
+- Release CI now uses a Node version that includes the SQLite runtime used by the store tests.
+- Cross-platform secret scanning runs under Bash on Linux and Windows release runners.
+
 ## 1.3.1 - 2026-07-11
 
 ### Added
