@@ -21,9 +21,22 @@ patterns=(
 )
 
 for pattern in "${patterns[@]}"; do
-  if rg -n --no-messages --color never --glob '!package-lock.json' --glob '!script/check_secrets.sh' -- "$pattern" "${files[@]}"; then
-    echo "Potential secret detected. Remove it and rotate the credential before committing." >&2
-    exit 1
+  if command -v rg >/dev/null 2>&1; then
+    if rg -n --no-messages --color never --glob '!package-lock.json' --glob '!script/check_secrets.sh' -- "$pattern" "${files[@]}"; then
+      echo "Potential secret detected. Remove it and rotate the credential before committing." >&2
+      exit 1
+    fi
+  else
+    for file in "${files[@]}"; do
+      case "$file" in
+        package-lock.json|script/check_secrets.sh) continue ;;
+      esac
+      [[ -f "$file" ]] || continue
+      if grep -nE -- "$pattern" "$file"; then
+        echo "Potential secret detected. Remove it and rotate the credential before committing." >&2
+        exit 1
+      fi
+    done
   fi
 done
 

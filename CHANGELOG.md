@@ -2,6 +2,14 @@
 
 All notable changes to Jarvis will be documented here. The project follows semantic versioning after the first public release.
 
+## 1.3.7 - 2026-07-11
+
+### Fixed
+
+- CI now runs on Node 24 so tests can load the built-in SQLite module.
+- Linux release packaging includes a public maintainer identity for DEB/RPM metadata.
+- Secret scanning falls back cleanly when `rg` is unavailable on a runner.
+
 ## 1.3.6 - 2026-07-11
 
 ### Fixed
