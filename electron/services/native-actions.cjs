@@ -13,6 +13,15 @@ const APPROVED_COMMANDS = {
 };
 
 const protectedPaths = new Set(['/', '/System', '/Library', '/Applications', '/Users', os.homedir()]);
+const MAC_ONLY_ACTIONS = new Set([
+  'openApp', 'switchApp', 'hideApp', 'quitApp', 'openProject', 'findFiles',
+  'runShortcut', 'listShortcuts', 'setVolume', 'mute', 'unmute', 'adjustVolume',
+  'setBrightness', 'toggleDoNotDisturb', 'openSystemSettings', 'takeScreenshot',
+  'batteryStatus', 'startScreenSaver', 'sleepDisplay', 'currentTrack', 'openTrash',
+  'inspectTrash', 'getFrontAppContext', 'listApplications', 'spotifyPause',
+  'spotifyResume', 'spotifyNext', 'spotifyPrevious', 'lockScreen', 'restartMac',
+  'shutDownMac', 'openTerminal', 'applyCodePatch'
+]);
 
 function canonical(target) {
   const absolute = path.resolve(target.replace(/^~(?=\/|$)/, os.homedir()));
@@ -83,7 +92,8 @@ function approvedFilePath(target, state) {
 async function executeNative(command, context) {
   const { shell, app, store, clipboard } = context;
   const state = store.snapshot(); const p = command.parameters || {};
-  const openWeb = url => state.preferences.defaultBrowser && state.preferences.defaultBrowser !== 'System Default' ? run('/usr/bin/open', ['-a', state.preferences.defaultBrowser, url]).then(() => undefined) : shell.openExternal(url);
+  if (process.platform !== 'darwin' && MAC_ONLY_ACTIONS.has(command.intent)) throw new Error(`“${command.intent}” requires macOS. Jarvis’s browser, file, timer, notes, AI, and connector features remain available on this platform.`);
+  const openWeb = url => process.platform === 'darwin' && state.preferences.defaultBrowser && state.preferences.defaultBrowser !== 'System Default' ? run('/usr/bin/open', ['-a', state.preferences.defaultBrowser, url]).then(() => undefined) : shell.openExternal(url);
   switch (command.intent) {
     case 'openApp':
     case 'switchApp': return run('/usr/bin/open', ['-a', appName(p.target || p.targets, state.preferences)]).then(() => 'Application opened.');
@@ -257,4 +267,4 @@ async function executeNative(command, context) {
   }
 }
 
-module.exports = { executeNative, canonical, inside, safeTrashTarget, approvedFilePath, APPROVED_COMMANDS };
+module.exports = { executeNative, canonical, inside, safeTrashTarget, approvedFilePath, APPROVED_COMMANDS, MAC_ONLY_ACTIONS };

@@ -12,6 +12,13 @@ let package = Package(
             name: "JarvisNativeBridge",
             path: "Sources/JarvisNativeBridge",
             exclude: ["Info.plist"],
+            swiftSettings: [
+                // The executable uses an async @main entry point in a file
+                // historically named main.swift. Newer Xcode toolchains infer
+                // top-level-main semantics from that filename unless this is
+                // explicitly compiled as a library module.
+                .unsafeFlags(["-parse-as-library"])
+            ],
             linkerSettings: [
                 .linkedFramework("ApplicationServices"),
                 .linkedFramework("AppKit"),

@@ -28,3 +28,5 @@ __pycache__/
 *.pyc
 .jarvis-signing.env
 dist-previous/
+release-dist/
+build-resources/

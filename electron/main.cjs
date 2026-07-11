@@ -69,6 +69,7 @@ function trustedHandle(channel, listener) { baseHandle(channel, (event, ...args)
 function trustedOn(channel, listener) { baseOn(channel, (event, ...args) => { assertTrustedSender(event); return listener(event, ...args); }); }
 
 async function applicationSignatureHealth() {
+  if (process.platform !== 'darwin') return { state: 'degraded', summary: `Jarvis is running on ${process.platform}. macOS code-signature checks do not apply.`, remediation: 'Use the signed installer published for this platform when available.', metadata: { packaged: PACKAGED_RUNTIME, platform: process.platform } };
   if (!PACKAGED_RUNTIME) return { state: 'degraded', summary: 'Jarvis is running in developer mode.', remediation: 'Install the signed build into /Applications for stable permissions.', metadata: { packaged: false } };
   const bundle = path.dirname(path.dirname(path.dirname(process.execPath)));
   try {

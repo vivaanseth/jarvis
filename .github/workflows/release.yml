@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing v* tag to publish
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    name: Package ${{ matrix.name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS universal
+            os: macos-14
+            command: ./script/build_universal_native_bridge.sh && npm run package:release -- --mac dmg zip tar.gz --universal
+          - name: Windows x64
+            os: windows-latest
+            command: npm run package:release -- --win nsis msi --x64
+          - name: Linux x64
+            os: ubuntu-latest
+            command: npm run package:release -- --linux AppImage deb rpm tar.gz --x64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - name: Package
+        shell: bash
+        run: ${{ matrix.command }}
+        env:
+          # Public macOS notarization needs an Apple Developer certificate and
+          # notarization credentials. Never substitute a secret or pretend an
+          # unsigned CI build is notarized.
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jarvis-${{ runner.os }}
+          path: release-dist/*
+          if-no-files-found: error
+
+  publish:
+    name: Publish GitHub release
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+      - name: Create integrity manifest
+        shell: bash
+        run: |
+          cd release-assets
+          find . -maxdepth 1 -type f -printf '%f\n' | sort | while IFS= read -r file; do sha256sum "$file"; done > SHA256SUMS.txt
+          node -e "const fs=require('fs'),crypto=require('crypto');const files=fs.readdirSync('.').filter(f=>fs.statSync(f).isFile()&&f!=='latest.json').sort();fs.writeFileSync('latest.json',JSON.stringify({version:process.env.TAG,generatedAt:new Date().toISOString(),assets:files.map(name=>({name,sha256:crypto.createHash('sha256').update(fs.readFileSync(name)).digest('hex')}))},null,2)+'\\n')"
+        env:
+          TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+          name: Jarvis ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+          generate_release_notes: true
+          files: release-assets/*

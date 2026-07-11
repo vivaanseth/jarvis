@@ -41,6 +41,9 @@ Complete [ACCEPTANCE_CHECKLIST.md](ACCEPTANCE_CHECKLIST.md) after any permission
 1. Run `npm ci`, `npm run check`, `npm test`, and `./script/build_and_run.sh --verify`.
 2. Review `git status --short` and the output of `./script/check_secrets.sh`. If the repository has history, also review `git log -p --all` and revoke any credential that was ever committed.
 3. Keep `.jarvis-signing.env`, `.env*`, `secrets.json`, certificates, databases, logs, `dist/`, and `dist-previous/` untracked.
-4. Complete [PUBLIC_RELEASE_CHECKLIST.md](PUBLIC_RELEASE_CHECKLIST.md), then create a signed source tag. Attach binaries only after verifying their hardened-runtime signature on the matching architecture.
+4. Complete [PUBLIC_RELEASE_CHECKLIST.md](PUBLIC_RELEASE_CHECKLIST.md), then create a signed source tag. Pushing `v*` starts `.github/workflows/release.yml`, which builds native artifacts on macOS, Windows, and Linux and publishes them with `SHA256SUMS.txt` and `latest.json`.
+5. GitHub automatically attaches **Source code (zip)** and **Source code (tar.gz)** to every release. Do not upload duplicate source bundles or placeholder `.sig` files: a `.sig` is published only when a real signing key and verification workflow exist.
+
+The release workflow makes a universal macOS DMG, ZIP, and app tarball; Windows x64 NSIS EXE and MSI; Linux x64 AppImage, DEB, RPM, and tarball. macOS gets the native Swift companion. Windows and Linux ship the Electron core and label Apple-only controls as unavailable rather than misrepresenting support. Public builds are unsigned until the maintainer configures real platform-specific signing credentials; checksums remain available for integrity verification.
 
 The package remains marked `private` to prevent accidental npm publication; this does not limit GitHub distribution under the MIT license.

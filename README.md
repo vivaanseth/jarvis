@@ -1,6 +1,6 @@
 # Jarvis
 
-Jarvis is an open-source, private-first macOS assistant. It combines safe native Mac automation, local memory, optional local models, and bring-your-own cloud services. It has no bundled API keys, no Jarvis account, no telemetry service, and no arbitrary shell execution.
+Jarvis is an open-source, private-first desktop assistant. It combines safe native automation, local memory, optional local models, and bring-your-own cloud services. It has no bundled API keys, no Jarvis account, no telemetry service, and no arbitrary shell execution.
 
 > **Early project:** Jarvis is useful today, but integrations and macOS permission behavior still need testing across more machines. Review action previews, start in Demo Mode, and report problems without attaching private data.
 
@@ -8,7 +8,9 @@ Jarvis is an open-source, private-first macOS assistant. It combines safe native
 
 ## Downloads
 
-Installers and packaged builds for macOS and Windows are published on the [GitHub Releases page](https://github.com/vivaanseth/jarvis/releases). If no release is listed yet, build from source with the commands below.
+Installers and packaged builds are published on the [GitHub Releases page](https://github.com/vivaanseth/jarvis/releases). Each release supplies a universal macOS `.dmg`, `.zip`, and `.app.tar.gz`; Windows x64 `.exe` and `.msi`; and Linux x64 `.AppImage`, `.deb`, `.rpm`, and `.tar.gz`, plus `SHA256SUMS.txt` and `latest.json`. GitHub automatically provides **Source code (zip)** and **Source code (tar.gz)** at the bottom of every release.
+
+The shared Electron interface, conversations, local files, timers, notes, browser opening, connectors, and BYOK AI work on macOS, Windows, and Linux. The signed Swift companion, Apple permissions, Mac app/window control, Shortcuts, AppleScript media control, and floating-orb placement are macOS-only and show an explicit unavailable state elsewhere.
 
 Requirements: macOS 13+, Node.js 20+, and full Xcode for the native companion.
 
