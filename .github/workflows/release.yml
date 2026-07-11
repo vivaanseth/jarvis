@@ -42,7 +42,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run check
+      - name: Check JavaScript and secrets
+        run: ./script/check_js.sh && ./script/check_secrets.sh
       - run: npm test
       - name: Package
         shell: bash
