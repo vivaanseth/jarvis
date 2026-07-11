@@ -2,6 +2,13 @@
 
 All notable changes to Jarvis will be documented here. The project follows semantic versioning after the first public release.
 
+## 1.3.4 - 2026-07-11
+
+### Fixed
+
+- Windows no longer attempts to start the macOS Unix-socket Chrome native host during application startup.
+- Release CI packages Windows after portable syntax and secret checks; the macOS/Linux test matrix continues to run the full suite.
+
 ## 1.3.3 - 2026-07-11
 
 ### Fixed

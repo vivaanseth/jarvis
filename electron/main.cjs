@@ -923,7 +923,11 @@ app.whenReady().then(async () => {
   });
   appleAutomation = new AppleAutomationService();
   browserBridge = new BrowserBridge(path.join(app.getPath('appData'), 'Jarvis'));
-  browserBridge.onStatus = () => broadcast(); browserBridge.start();
+  browserBridge.onStatus = () => broadcast();
+  // The bundled native-messaging host currently uses a Unix-domain socket.
+  // Keep the cross-platform Electron core usable until a Windows/Linux host is
+  // packaged, rather than trying to bind an invalid socket path at startup.
+  if (process.platform !== 'win32') browserBridge.start();
   nativeBridge = new NativeBridgeClient(path.join(__dirname, '..'), { expectedProtocol: 2 });
   nativeBridge.onStatus = status => { logger?.info('native', 'status', status); if (mainWindow || orbWindow) broadcast(); };
   nativeBridge.onEvent = (event, payload) => {

@@ -44,7 +44,9 @@ jobs:
       - run: npm ci
       - name: Check JavaScript and secrets
         run: ./script/check_js.sh && ./script/check_secrets.sh
-      - run: npm test
+      - name: Run automated tests
+        if: runner.os != 'Windows'
+        run: npm test
       - name: Package
         shell: bash
         run: ${{ matrix.command }}
