@@ -2,6 +2,12 @@
 
 All notable changes to Jarvis will be documented here. The project follows semantic versioning after the first public release.
 
+## 1.3.3 - 2026-07-11
+
+### Fixed
+
+- Release verification runs in Git Bash on Windows instead of invoking POSIX scripts through `cmd.exe`.
+
 ## 1.3.2 - 2026-07-11
 
 ### Fixed
