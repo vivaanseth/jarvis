@@ -74,6 +74,7 @@ jobs:
         shell: bash
         run: |
           cd release-assets
+          rm -f builder-debug.yml
           find . -maxdepth 1 -type f -printf '%f\n' | sort | while IFS= read -r file; do sha256sum "$file"; done > SHA256SUMS.txt
           node -e "const fs=require('fs'),crypto=require('crypto');const files=fs.readdirSync('.').filter(f=>fs.statSync(f).isFile()&&f!=='latest.json').sort();fs.writeFileSync('latest.json',JSON.stringify({version:process.env.TAG,generatedAt:new Date().toISOString(),assets:files.map(name=>({name,sha256:crypto.createHash('sha256').update(fs.readFileSync(name)).digest('hex')}))},null,2)+'\\n')"
         env:
