@@ -1,6 +1,6 @@
 {
   "name": "jarvis-desktop",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "private": true,
   "productName": "Jarvis",
   "description": "Open-source, private-first desktop assistant with local automation and bring-your-own AI",
@@ -43,7 +43,7 @@
       { "from": "build-resources/native", "to": "native", "filter": ["**/*"] }
     ],
     "artifactName": "Jarvis-${version}-${os}-${arch}.${ext}",
-    "mac": { "category": "public.app-category.productivity", "icon": "build-resources/icon.icns", "target": ["dmg", "zip", "tar.gz"], "hardenedRuntime": true, "gatekeeperAssess": false },
+    "mac": { "category": "public.app-category.productivity", "icon": "build-resources/icon.icns", "target": ["dmg", "zip", "tar.gz"], "hardenedRuntime": true, "gatekeeperAssess": false, "singleArchFiles": "Contents/Resources/native/JarvisNativeBridge" },
     "dmg": { "title": "Jarvis ${version}" },
     "win": { "icon": "build-resources/icon.ico", "target": ["nsis", "msi"] },
     "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true, "artifactName": "Jarvis-${version}-windows-${arch}-setup.${ext}" },
