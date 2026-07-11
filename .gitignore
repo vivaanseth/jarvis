@@ -3,6 +3,9 @@
 .build-*/
 DerivedData/
 dist/
+dist-windows/
+release-assets/
+.build-windows-release/
 node_modules/
 npm-debug.log*
 *.log
