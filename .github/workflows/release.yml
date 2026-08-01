@@ -55,7 +55,7 @@ jobs:
           # notarization credentials. Never substitute a secret or pretend an
           # unsigned CI build is notarized.
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: jarvis-${{ runner.os }}
           path: release-dist/*
