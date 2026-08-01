@@ -79,7 +79,7 @@ jobs:
           node -e "const fs=require('fs'),crypto=require('crypto');const files=fs.readdirSync('.').filter(f=>fs.statSync(f).isFile()&&f!=='latest.json').sort();fs.writeFileSync('latest.json',JSON.stringify({version:process.env.TAG,generatedAt:new Date().toISOString(),assets:files.map(name=>({name,sha256:crypto.createHash('sha256').update(fs.readFileSync(name)).digest('hex')}))},null,2)+'\\n')"
         env:
           TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
           name: Jarvis ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
